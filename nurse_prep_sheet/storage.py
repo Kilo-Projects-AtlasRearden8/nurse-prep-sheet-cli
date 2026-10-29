@@ -7,7 +7,6 @@ sent anywhere, and no account or network access is required.
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 from typing import Optional
 
@@ -57,8 +56,8 @@ def save_sheet(sheet: ShiftSheet, path: Path | str) -> None:
         raise StorageError(f"failed to write storage file {path}: {exc}") from exc
 
 
-def resolve_storage_path(env_value: Optional[str]) -> Path:
-    """Resolve the storage path from an environment variable or default."""
-    if env_value:
-        return Path(env_value)
+def resolve_storage_path(path_value: Optional[str]) -> Path:
+    """Resolve the storage path from a CLI-provided value or the default."""
+    if path_value:
+        return Path(path_value)
     return default_storage_path()

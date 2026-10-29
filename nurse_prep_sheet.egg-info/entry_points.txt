@@ -1,0 +1,2 @@
+[console_scripts]
+nurse-prep = nurse_prep_sheet.cli:main
