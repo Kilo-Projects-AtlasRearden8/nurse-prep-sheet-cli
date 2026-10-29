@@ -1,0 +1,137 @@
+# Nurse Shift Prep Sheet CLI
+
+A small, local-first command-line tool for building a nurse shift prep
+sheet: patient list, tasks, and priorities, with local JSON storage and
+printable text output.
+
+Built and published by **Asdale Dynamics, LLC** (Indiana, formed October
+2026) — beginner-friendly AI education, books and guides, and practical
+tools. Learn more at dylanasdale.github.io.
+
+## Education only — not medical advice
+
+This tool is for education and personal organization only. It is **not**
+medical advice, and it does not replace clinical judgment, facility
+policy, provider orders, or direction from the care team. Always verify
+with the care team before acting on anything in a prep sheet. Every
+sheet and every CLI run starts with this disclaimer.
+
+No patient data is stored by Asdale Dynamics, LLC. Everything stays on
+your machine in a local JSON file. No network access, no accounts, no
+API keys, no tracking.
+
+## Features
+
+- Add patients with room, diagnosis, code status, and allergies
+- Add tasks per patient with priority (high / medium / low) and due time
+- Mark tasks done or pending
+- List patients and tasks
+- Print a full shift sheet (plain text, printer-friendly) or a single
+  patient summary
+- Short sheet summary with pending and high-priority counts
+- All data saved locally as JSON (`~/.nurse-prep-sheet/shift.json` by
+  default, or a path of your choice with `--storage`)
+
+## Install
+
+```bash
+git clone <this-repo>
+cd nurse-prep-sheet-cli
+python3 -m pip install -e .
+```
+
+Or run without installing:
+
+```bash
+python3 -m nurse_prep_sheet --help
+```
+
+## Usage
+
+Initialize a new sheet:
+
+```bash
+nurse-prep init --unit MedSurg --shift "7a-7p" --date 2026-10-29
+```
+
+Add a patient:
+
+```bash
+nurse-prep add-patient "Jane Doe" --room 210 --diagnosis pneumonia --allergies "PCN"
+```
+
+Add a task:
+
+```bash
+nurse-prep add-task p1 "morning med pass" --priority high --due 09:00
+nurse-prep add-task p1 "ambulate in hall" --priority medium
+```
+
+Mark a task done / back to pending:
+
+```bash
+nurse-prep done p1 t1
+nurse-prep pending p1 t1
+```
+
+List patients:
+
+```bash
+nurse-prep list-patients
+```
+
+List one patient's tasks:
+
+```bash
+nurse-prep list-tasks p1
+```
+
+Print the full sheet (printable):
+
+```bash
+nurse-prep sheet
+```
+
+Print one patient:
+
+```bash
+nurse-prep sheet --patient p1
+```
+
+Short summary:
+
+```bash
+nurse-prep summary
+```
+
+Use a different storage file:
+
+```bash
+nurse-prep --storage /tmp/my-shift.json init
+```
+
+## Tests
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+Tests use only the Python standard library and cover patient/task entry
+logic, priority validation, done/pending transitions, and JSON save/load
+round trips.
+
+## About Asdale Dynamics, LLC
+
+Asdale Dynamics, LLC (Indiana, formed October 2026) is founded by Dylan
+Asdale, a registered nurse turned AI author. The LLC publishes
+beginner-friendly AI education — books and guides like *The Massive AI
+Manual* — plus open-source tools and templates: prompt tools, local-LLM
+utilities, MCP servers, agent skills, small-business and author tools,
+and accessible life-admin helpers including healthcare-worker AI aids
+(education only, never medical advice).
+
+Hub site: dylanasdale.github.io
+
+## License
+
+MIT License. Copyright (c) 2026 Asdale Dynamics, LLC. See LICENSE.
